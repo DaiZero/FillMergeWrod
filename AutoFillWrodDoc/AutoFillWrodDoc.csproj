@@ -74,11 +74,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AsposeWordHepler.cs" />
-    <Compile Include="ChannelWordInfo.cs" />
-    <Compile Include="ResultInfo.cs" />
-    <Compile Include="WordInfoBase.cs" />
-    <Compile Include="WorkOrderInfo.cs" />
+    <Compile Include="Common\AsposeWordHepler.cs" />
+    <Compile Include="NP\ChannelWordInfo.cs" />
+    <Compile Include="NP\ResultInfo.cs" />
+    <Compile Include="NP\WordInfoBase.cs" />
+    <Compile Include="NP\WorkOrderInfo.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,14 +87,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FillTemplateWord.cs" />
+    <Compile Include="NP\FillTemplateWord.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NPOIExcelHepler.cs" />
+    <Compile Include="Common\NPOIExcelHepler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

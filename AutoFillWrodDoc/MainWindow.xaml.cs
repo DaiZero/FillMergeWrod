@@ -1,20 +1,8 @@
-﻿using Aspose.Words;
-using Aspose.Words.Replacing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutoFillWrodDoc
 {
@@ -148,7 +136,7 @@ namespace AutoFillWrodDoc
                 }
                 foreach (var woinfo in workOrderInfos)
                 {
-                    CreateReportWord(woinfo);
+                    CreateReportWord(woinfo, txtModelDirPath.Text);
                 }
                 MessageBox.Show("报告文件生成结束。");
             }
@@ -158,7 +146,7 @@ namespace AutoFillWrodDoc
             }
         }
 
-        private void CreateReportWord(WorkOrderInfo workOrderInfo)
+        private void CreateReportWord(WorkOrderInfo workOrderInfo,string wordModelDirPath)
         {
             //生成Word数据集
             FillTemplateWord fillTemplateWord = new FillTemplateWord();
@@ -171,7 +159,7 @@ namespace AutoFillWrodDoc
             }
 
             //找到模板文档
-            System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(txtModelDirPath.Text);
+            System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(wordModelDirPath);
 
             var specmodelfiles = directoryInfo.GetFiles().ToList();
             specmodelfiles = specmodelfiles.Where(x => x.Extension.Contains("doc") && x.Name.Contains(workOrderInfo.Spec + ")")).ToList();
@@ -208,7 +196,7 @@ namespace AutoFillWrodDoc
                 var newfilefullname = System.IO.Path.Combine(rpdirpath, newfilename);
 
                 asposeWordHepler.Copy(wordmodelpath, newfilefullname);
-                ReplaceWord(newfilefullname, word);
+                fillTemplateWord.ReplaceWord(newfilefullname, word);
                 filnames.Add(newfilefullname);
                 i++;
             }
@@ -234,90 +222,5 @@ namespace AutoFillWrodDoc
                 txtModelDirPath.Text = dialog.SelectedPath;
             }
         }
-
-
-        public void ReplaceWord(string filefullname, ChannelWordInfo wordInfo)
-        {
-            AsposeWordHepler asposeWordHepler = new AsposeWordHepler();
-            Document doc = new Document(filefullname);
-            FindReplaceOptions findReplaceOptions = new FindReplaceOptions();
-
-            asposeWordHepler.ReplaceString(doc, "{wono}", wordInfo.WorkOrderNo);
-            asposeWordHepler.ReplaceString(doc, "{no}", wordInfo.Number);
-            asposeWordHepler.ReplaceString(doc, "{norg}", wordInfo.NumberRange);
-            asposeWordHepler.ReplaceString(doc, "{qty}", wordInfo.Qty);
-            asposeWordHepler.ReplaceString(doc, "{tp}", wordInfo.Temperature);
-            asposeWordHepler.ReplaceString(doc, "{hd}", wordInfo.Humidity);
-            asposeWordHepler.ReplaceString(doc, "{ter}", wordInfo.Tester);
-            asposeWordHepler.ReplaceString(doc, "{tdate}", wordInfo.TestDate);
-            asposeWordHepler.ReplaceString(doc, "{aer}", wordInfo.Auditor);
-            asposeWordHepler.ReplaceString(doc, "{adate}", wordInfo.AuditDate);
-
-
-            #region 1通道
-            asposeWordHepler.ReplaceString(doc, "{c111u}", wordInfo.C1_U_1_0);
-            asposeWordHepler.ReplaceString(doc, "{c112u}", wordInfo.C1_U_1_25);
-            asposeWordHepler.ReplaceString(doc, "{c113u}", wordInfo.C1_U_1_50);
-            asposeWordHepler.ReplaceString(doc, "{c114u}", wordInfo.C1_U_1_75);
-            asposeWordHepler.ReplaceString(doc, "{c115u}", wordInfo.C1_U_1_100);
-
-            asposeWordHepler.ReplaceString(doc, "{c111d}", wordInfo.C1_D_1_0);
-            asposeWordHepler.ReplaceString(doc, "{c112d}", wordInfo.C1_D_1_25);
-            asposeWordHepler.ReplaceString(doc, "{c113d}", wordInfo.C1_D_1_50);
-            asposeWordHepler.ReplaceString(doc, "{c114d}", wordInfo.C1_D_1_75);
-            asposeWordHepler.ReplaceString(doc, "{c115d}", wordInfo.C1_D_1_100);
-
-            asposeWordHepler.ReplaceString(doc, "{c121u}", wordInfo.C1_U_2_0);
-            asposeWordHepler.ReplaceString(doc, "{c122u}", wordInfo.C1_U_2_25);
-            asposeWordHepler.ReplaceString(doc, "{c123u}", wordInfo.C1_U_2_50);
-            asposeWordHepler.ReplaceString(doc, "{c124u}", wordInfo.C1_U_2_75);
-            asposeWordHepler.ReplaceString(doc, "{c125u}", wordInfo.C1_U_2_100);
-
-            asposeWordHepler.ReplaceString(doc, "{c121d}", wordInfo.C1_D_2_0);
-            asposeWordHepler.ReplaceString(doc, "{c122d}", wordInfo.C1_D_2_25);
-            asposeWordHepler.ReplaceString(doc, "{c123d}", wordInfo.C1_D_2_50);
-            asposeWordHepler.ReplaceString(doc, "{c124d}", wordInfo.C1_D_2_75);
-            asposeWordHepler.ReplaceString(doc, "{c125d}", wordInfo.C1_D_2_100);
-
-            asposeWordHepler.ReplaceString(doc, "{b1}", wordInfo.C1_Bjqd);
-            asposeWordHepler.ReplaceString(doc, "{cf1}", wordInfo.C1_Cfxwc);
-            asposeWordHepler.ReplaceString(doc, "{hc1}", wordInfo.C1_Hc);
-            asposeWordHepler.ReplaceString(doc, "{sq1}", wordInfo.C1_SQ);
-
-            #endregion
-
-            #region 2通道
-            asposeWordHepler.ReplaceString(doc, "{c211u}", wordInfo.C2_U_1_0);
-            asposeWordHepler.ReplaceString(doc, "{c212u}", wordInfo.C2_U_1_25);
-            asposeWordHepler.ReplaceString(doc, "{c213u}", wordInfo.C2_U_1_50);
-            asposeWordHepler.ReplaceString(doc, "{c214u}", wordInfo.C2_U_1_75);
-            asposeWordHepler.ReplaceString(doc, "{c215u}", wordInfo.C2_U_1_100);
-        
-            asposeWordHepler.ReplaceString(doc, "{c211d}", wordInfo.C2_D_1_0);
-            asposeWordHepler.ReplaceString(doc, "{c212d}", wordInfo.C2_D_1_25);
-            asposeWordHepler.ReplaceString(doc, "{c213d}", wordInfo.C2_D_1_50);
-            asposeWordHepler.ReplaceString(doc, "{c214d}", wordInfo.C2_D_1_75);
-            asposeWordHepler.ReplaceString(doc, "{c215d}", wordInfo.C2_D_1_100);
-
-            asposeWordHepler.ReplaceString(doc, "{c221u}", wordInfo.C2_U_2_0);
-            asposeWordHepler.ReplaceString(doc, "{c222u}", wordInfo.C2_U_2_25);
-            asposeWordHepler.ReplaceString(doc, "{c223u}", wordInfo.C2_U_2_50);
-            asposeWordHepler.ReplaceString(doc, "{c224u}", wordInfo.C2_U_2_75);
-            asposeWordHepler.ReplaceString(doc, "{c225u}", wordInfo.C2_U_2_100);
-
-            asposeWordHepler.ReplaceString(doc, "{c221d}", wordInfo.C2_D_2_0);
-            asposeWordHepler.ReplaceString(doc, "{c222d}", wordInfo.C2_D_2_25);
-            asposeWordHepler.ReplaceString(doc, "{c223d}", wordInfo.C2_D_2_50);
-            asposeWordHepler.ReplaceString(doc, "{c224d}", wordInfo.C2_D_2_75);
-            asposeWordHepler.ReplaceString(doc, "{c225d}", wordInfo.C2_D_2_100);
-
-            asposeWordHepler.ReplaceString(doc, "{b2}", wordInfo.C2_Bjqd);
-            asposeWordHepler.ReplaceString(doc, "{cf2}", wordInfo.C2_Cfxwc);
-            asposeWordHepler.ReplaceString(doc, "{hc2}", wordInfo.C2_Hc);
-            asposeWordHepler.ReplaceString(doc, "{sq2}", wordInfo.C2_SQ);
-            #endregion
-            doc.Save(filefullname);
-        }
-
     }
 }
