@@ -1,0 +1,33 @@
+﻿<Window x:Class="AutoFillWrodDoc.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoFillWrodDoc"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" x:Name="BtnDownLoadExcelModel" Margin="5" Width="200" Height="35" Content="下载订单Excel模板" Click="BtnDownLoadExcelModel_Click"></Button>
+        <Button Grid.Row="1" x:Name="BtnChooseWordModelDir" Margin="5" Width="200" Height="35" Content="选择检验报告模板文件夹" Click="BtnChooseWordModelDir_Click"></Button>
+        <DockPanel Grid.Row="2"  >
+            <TextBlock FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center">检验报告模板文件夹地址：</TextBlock>
+            <TextBlock  x:Name="txtModelDirPath"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </DockPanel>
+        <Button Grid.Row="3" x:Name="BtnUpLoadWoExcel" Margin="5" Width="200" Height="35" Content="上传订单信息，生成检验报告" Click="BtnUpLoadWoExcel_Click"></Button>
+        <!--<DataGrid Grid.Row="4"  x:Name="dgmsg" Margin="5">
+            <DataGridTextColumn  Header="信息" Binding="{Binding Message}"/>
+        </DataGrid>-->
+        
+    </Grid>
+</Window>
